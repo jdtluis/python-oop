@@ -2,25 +2,24 @@ import sys
 
 from diarybook import Diary, Diarybook
 
+
 class Menu:
- ''' Displays a list of choices on the terminal for  the user to run '''
+    ''' Displays a list of choices on the terminal for  the user to run '''
 
- def __init__(self):
+    def __init__(self):
 
-      self.diarybook = Diarybook()
+        self.diarybook = Diarybook()
 
-      self.choices = {
-           "1" : self.show_diaries,
-           "2" : self.add_diary,
-           "3" : self.search_diaries,
-           "4" : self.quit
+        self.choices = {
+            "1": self.show_diaries,
+            "2": self.add_diary,
+            "3": self.search_diaries,
+            "4": self.quit
 
         }
 
-
-
- def display_menu(self):
-       print(""" 
+    def display_menu(self):
+        print(""" 
               Notebook Menu  
 
              1. Show diaries
@@ -29,47 +28,50 @@ class Menu:
              4. Quit program
              """)
 
- def run(self):
-     ''' Display menu and respond to user choices '''
+    def run(self):
+        ''' Display menu and respond to user choices '''
 
-     while True:
+        while True:
 
-          self.display_menu()
-           choice = input("Enter an option: " )
-           action = self.choices.get(choice)
-           if action:
+            self.display_menu()
+            choice = input("Enter an option: ")
+            action = self.choices.get(choice)
+            if action:
                 action()
-           else:
-              print("{0} is not a valid choice".format(choice))
+            else:
+                print("{0} is not a valid choice".format(choice))
 
- def show_diaries(self, diaries=None):
-     ''' Display all diaries in diarybook '''
+    def show_diaries(self, diaries=None):
+        ''' Display all diaries
+         in diarybook '''
 
-     if not diaries:
-        diaries = self.diarybook.diaries
-     for diary in diaries:
-       print("{0}".format(diary.memo)) 
-       
- def add_diary(self):
-     ''' Add a new diary in the diarybook '''
-
-     memo = input("Enter a memo:         " )
-     self.diarybook.new_diary(memo)
-     print("Your note has been added")
+        if not diaries:
+            diaries = self.diarybook.diaries
+        for diary in diaries:
+            print("{0}".format(diary.memo))
 
 
- def search_diaries(self):
-     ''' Search for a specific diary in the diarybook using the match filter '''
+    def add_diary(self):
+        ''' Add a new diary in the diarybook '''
 
-     filter = input("Search for:  ")
-     diaries = self.diarybook.search_diary(filter)
-     self.show_diaries(diaries)
+        memo = input("Enter a memo:         ")
+        self.diarybook.new_diary(memo)
+        print("Your note has been added")
 
- def quit(self):
-      ''' quit or terminate the program '''  
-      print("Thank you for using diarybook today")
-      sys.exit(0)
+
+    def search_diaries(self):
+        ''' Search for a specific diary in the diarybook using the match filter '''
+
+        filter = input("Search for:  ")
+        diaries = self.diarybook.search_diary(filter)
+        self.show_diaries(diaries)
+
+
+    def quit(self):
+        ''' quit or terminate the program '''
+        print("Thank you for using diarybook today")
+        sys.exit(0)
+
 
 if __name__ == "__main__":
     Menu().run()
-
